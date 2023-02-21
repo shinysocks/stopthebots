@@ -308,7 +308,7 @@ while run:
                 end_text = font3.render(f"New Highest score: {score}", True, (237, 19, 30), (background_color))
 
                 highest_score_new = score
-                c.execute(f"UPDATE score SET high_score = {highest_score_new} WHERE high_score ={highest_score};")
+                c.execute(f"UPDATE score SET high_score = {highest_score_new} WHERE high_score = {highest_score};")
                 conn.commit()
                 conn.close()
 
