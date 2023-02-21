@@ -14,8 +14,6 @@ bot2y = 210
 bot3x = 600
 bot3y = 210
 
-background_color = (0, 0, 0)
-
 title_image = pygame.image.load("title.png")
 img1 = pygame.image.load("bot1.png")
 img2 = pygame.image.load("bot2.png")
@@ -24,6 +22,8 @@ boom = pygame.image.load("boom.png")
 heart_small = pygame.image.load("smal_heart.png")
 heart = pygame.image.load("heart.png")
 
+background_color = (0, 0, 0)
+    
 
 def reset(current_high_score):
     c.execute(f"UPDATE score SET high_score = 0 WHERE high_score = {current_high_score};")
@@ -31,11 +31,11 @@ def reset(current_high_score):
 
 
 def rect_draw():
-    pygame.draw.rect(win, (background_color), (220, 440, 357, 50))
+    pygame.draw.rect(win, background_color, (220, 440, 357, 50))
 
 
 def rect_draw2(botx):
-    pygame.draw.rect(win, (background_color), (botx - 50, 170, 175, 210))
+    pygame.draw.rect(win, background_color, (botx - 50, 170, 175, 210))
 
 
 def quit():
@@ -55,9 +55,14 @@ def wait():
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RETURN:
                     continue_time = True
+    
 
+def background_gen():
+    r = random.randrange(0, 200, 15)
+    g = random.randrange(0, 200, 15)
+    b = random.randrange(0, 200, 15)
 
-
+    return (r, g, b)
 
 
 font0 = pygame.font.Font('freesansbold.ttf', 25)
@@ -110,9 +115,9 @@ while run:
     pygame.display.update()
     win.fill((background_color))
     hp = 400
-    E1 = random.randrange(100, 400, 100)
-    E2 = random.randrange(100, 600, 100)
-    E3 = random.randrange(100, 700, 100)
+    E1 = random.randrange(100, 300, 100)
+    E2 = random.randrange(100, 500, 100)
+    E3 = random.randrange(100, 600, 100)
     if E2 > 400:
         hp += int(100)
     if E3 > 400:
@@ -121,20 +126,9 @@ while run:
     while hp > 0:
         quit()
         if hp >= 900:
-            hp -= 300
+            hp -= 200
         if O1 and O2 and O3 == True:
-            if score >= 1:
-                background_color = (161, 132, 51)
-            if score >= 4:
-                background_color = (144, 4, 199)
-            if score >= 7:
-                background_color = (72, 110, 82)
-            if score >= 10:
-                background_color = (214, 56, 160)
-            if score >= 13:
-                background_color = (255, 255, 255)
-            if score >= 16:
-                background_color = (76, 162, 173)
+            background_color = background_gen()
 
             score = score + 1
             win.fill((background_color))
